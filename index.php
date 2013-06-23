@@ -8,7 +8,7 @@
 	<img src="logoweb.png" alt="Veracity Logo" title="Veracity">
 	<form action="index.php" method="post" class="form-wrapper cf" >
 		<input type="text" id="fburl" name="fburl" placeholder="Enter URL here..." required />
-		<button type="submit" name="submit">SUBMIT</button>
+		<button type="submit" name="submit">GET RSS!</button>
 	</form>
 
 <?php
@@ -47,11 +47,11 @@ if (!empty($_POST))
 		$pageid=array();
 		if(preg_match('/^.*"id":"([0-9]+)"/', $data,$pageid))
 		{
-			$atom="https://www.facebook.com/feeds/page.php?format=atom10&id=".$pageid[1];
+			$atom="http://www.facebook.com/feeds/page.php?format=atom10&id=".$pageid[1];
 			$rss20="http://www.facebook.com/feeds/page.php?format=rss20&id=".$pageid[1];
 			echo '<div class="rssfeed">';
-			echo "<a href=".$atom.">".$atom."</a><br>";
-			echo "<a href=".$rss20.">".$rss20."</a>";
+			echo "<U>ATOM</U><BR><a href=".$atom.">".$atom."</a><br><br>";
+			echo "<U>RSS 2.0</U><BR><a href=".$rss20.">".$rss20."</a>";
 			echo '</div>';
 		}
 		else
