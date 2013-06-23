@@ -22,18 +22,22 @@ if (!empty($_POST))
 	{
 		if(strstr($newurl,"fb.com/")||strstr($newurl, "facebook.com/")||strstr($newurl, "fb.me/"))
 			$flag=1;
+		elseif (strstr($newurl, "youtube.com/"))
+			$flag=2;
+		elseif(strstr($newurl,"wikipedia.org/"))
+			$flag=3;
 		else
 		{
 			$flag=0;
-			echo '<FONT FACE="Monospace" COLOR="red"><B>';
-			echo "Invalid URL!";
+			echo '<FONT FACE="Monospace" size=11px COLOR="red"><B>';
+			echo "Given URL not supported.!";
 			echo "</B></FONT>";
 		}
 	}
 	else
 	{
 			$flag=0;
-			echo '<FONT FACE="Monospace" COLOR="red"><B>';
+			echo '<FONT FACE="Monospace" size=11px COLOR="red"><B>';
 			echo "Invalid URL!";
 			echo "</B></FONT>";
 	}
@@ -56,7 +60,41 @@ if (!empty($_POST))
 		}
 		else
 		{
-			echo '<FONT FACE="Monospace" COLOR="red"><B>';
+			echo '<FONT FACE="Monospace" size=11px COLOR="red"><B>';
+			echo "RSS feed not found!";
+			echo "</B></FONT>";
+		}
+	}
+	elseif ($flag==2)
+	{
+		$urlslice=explode("/", $newurl);
+		if(count($urlslice)>2)
+		{
+			$pagename=explode("?",$urlslice[2]);
+			$rss20="http://gdata.youtube.com/feeds/api/users/".$pagename[0]."/uploads";
+			echo '<div class="rssfeed">';
+			echo "<a href=".$rss20.">".$rss20."</a></div>";
+		}
+		else
+		{
+			echo '<FONT FACE="Monospace" size=11px COLOR="red"><B>';
+			echo "RSS feed not found!";
+			echo "</B></FONT>";
+		}
+	}
+	elseif ($flag==3)
+	{
+		$urlslice=explode("/", $newurl);
+		if(count($urlslice)>2)
+		{
+			$pagename=explode("#",$urlslice[2]);
+			$atom="http://en.wikipedia.org/w/index.php?action=history&feed=atom&title=".$pagename[0];
+			echo '<div class="rssfeed">';
+			echo "<a href=".$atom.">".$atom."</a></div>";
+		}
+		else
+		{
+			echo '<FONT FACE="Monospace" size=11px COLOR="red"><B>';
 			echo "RSS feed not found!";
 			echo "</B></FONT>";
 		}
